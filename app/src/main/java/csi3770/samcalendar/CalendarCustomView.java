@@ -38,7 +38,7 @@ public class CalendarCustomView extends LinearLayout{
         super(context, attrs);
         this.context = context;
         initializeUILayout();
-        setUpCalendarAdapter();
+        //setUpCalendarAdapter();
         setPreviousButtonClickEvent();
         setNextButtonClickEvent();
         setGridCellClickEvents();
