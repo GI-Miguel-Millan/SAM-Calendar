@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/left_arrow"
+            android:src="@drawable/right_arrow"
             android:layout_weight="1"/>
         <TextView
             android:id="@+id/display_current_date"
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/right_arrow"
+             android:src="@drawable/right_arrow"
             android:layout_weight="1"/>
     </LinearLayout>
     <Button

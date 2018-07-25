@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-//import com.inducesmile.androidcustomcalendar.database.DatabaseQuery;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
