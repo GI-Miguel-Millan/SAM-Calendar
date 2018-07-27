@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">SAMcalendar</string>
-    <string name="app_title">SAM's Calendar</string>
+    <string name="app_title">SAM\'s Calendar</string>
     <string name="title">SAM\'s Calendar</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 </resources>
