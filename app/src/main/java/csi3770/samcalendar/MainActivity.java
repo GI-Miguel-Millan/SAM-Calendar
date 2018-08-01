@@ -6,6 +6,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,12 +16,15 @@ import java.util.HashSet;
 
 public class MainActivity extends AppCompatActivity
 {
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         HashSet<Date> events = new HashSet<>();
         events.add(new Date());
@@ -36,6 +42,9 @@ public class MainActivity extends AppCompatActivity
                 DateFormat df = SimpleDateFormat.getDateInstance();
                 //Toast.makeText(MainActivity.this, df.format(date), Toast.LENGTH_SHORT).show();
                 Toast.makeText(MainActivity.this, "create event on long press", Toast.LENGTH_SHORT).show();
+
+                // test/example database write
+                mDatabase.child("event").setValue("event data");
             }
 
             @Override
