@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "109112798355",
+    "firebase_url": "https://samcalendar-729a6.firebaseio.com",
+    "project_id": "samcalendar-729a6",
+    "storage_bucket": "samcalendar-729a6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:109112798355:android:36c53540b07f339b",
+        "android_client_info": {
+          "package_name": "csi3770.samcalendar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "109112798355-cco58s0l4hjs2p0dbnefbak1ovogbrlj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "csi3770.samcalendar",
+            "certificate_hash": "c5f02fa2ff8352a85e7ed95c367fa726bb690b56"
+          }
+        },
+        {
+          "client_id": "109112798355-nl8u2kfu35o8fpgjfpq54umc09j6r8d4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKfH3e2HrOXaWS3xacP97lBeCSm-QySzw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "109112798355-nl8u2kfu35o8fpgjfpq54umc09j6r8d4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
