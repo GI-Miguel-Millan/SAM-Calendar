@@ -34,7 +34,16 @@ public class MainActivity extends AppCompatActivity
             {
                 // show returned day
                 DateFormat df = SimpleDateFormat.getDateInstance();
-                Toast.makeText(MainActivity.this, df.format(date), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, df.format(date), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "create event on long press", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onShortPress(Date date){
+                // show returned day
+                DateFormat df = SimpleDateFormat.getDateInstance();
+                //Toast.makeText(MainActivity.this, df.format(date), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "display events for this day", Toast.LENGTH_SHORT).show();
             }
         });
     }
