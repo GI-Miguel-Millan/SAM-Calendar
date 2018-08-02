@@ -4,4 +4,11 @@
     <string name="title">SAM\'s Calendar</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="eventPrompt">Event</string>
+    <string name="datePlaceholder">datePlaceholder</string>
+    <string name="locationPrompt">Enter a Location</string>
+    <string name="detailsPrompt">Enter Event Details</string>
+    <string name="createdBy">Who Created this Event?</string>
+    <string name="submitEvent">Submit</string>
+
 </resources>
