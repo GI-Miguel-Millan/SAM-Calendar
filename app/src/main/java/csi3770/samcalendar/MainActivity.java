@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity
     private ListView mEventList;
     private EventManager events;
     private ArrayList<String> event_info = new ArrayList<>();
+    private ArrayList<String> mKeys = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("test-id");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("events").child("test-id");
         mEventList = (ListView) findViewById(R.id.event_list);
 
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, event_info);
@@ -45,14 +46,24 @@ public class MainActivity extends AppCompatActivity
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
                 String value = dataSnapshot.getValue(String.class);
-
                 event_info.add(value);
+
+                String key = dataSnapshot.getKey();
+                mKeys.add(key);
+
                 arrayAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                String value = dataSnapshot.getValue(String.class);
+                String key = dataSnapshot.getKey();
 
+                int index = mKeys.indexOf(key);
+
+                event_info.set(index,value);
+
+                arrayAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -84,8 +95,8 @@ public class MainActivity extends AppCompatActivity
             public void onDayLongPress(Date date)
             {
                 // show returned day
-                //DateFormat df = SimpleDateFormat.getDateInstance();
-                //Toast.makeText(MainActivity.this, df.format(date), Toast.LENGTH_SHORT).show();
+//                DateFormat df = SimpleDateFormat.getDateInstance();
+//                Toast.makeText(MainActivity.this, df.format(date), Toast.LENGTH_SHORT).show();
                 //Toast.makeText(MainActivity.this, "create event on long press", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(getBaseContext(), AddEvent.class);

@@ -2,7 +2,11 @@ package csi3770.samcalendar;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class AddEvent extends AppCompatActivity {
@@ -10,6 +14,7 @@ public class AddEvent extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_event);
 
         date = new Date();
         Bundle extras = getIntent().getExtras();
@@ -17,6 +22,12 @@ public class AddEvent extends AppCompatActivity {
             date.setTime(extras.getLong("date"));
         }
 
-        setContentView(R.layout.activity_add_event);
+        TextView tvDate = findViewById(R.id.DateSelected);
+        DateFormat df = SimpleDateFormat.getDateInstance();
+
+        tvDate.setText("Event on: " + df.format(date));
+
+
+
     }
 }
