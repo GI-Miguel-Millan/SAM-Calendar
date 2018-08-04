@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("events").child("test-id");
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         mEventList = (ListView) findViewById(R.id.event_list);
 
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, event_info);
@@ -45,24 +45,46 @@ public class MainActivity extends AppCompatActivity
         mDatabase.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                String eventinfo = "";
 
-                String value = dataSnapshot.getValue(String.class);
-                event_info.add(value);
+                eventinfo += "Date: " + dataSnapshot.child("date").getValue() + "\n";
+                mKeys.add(dataSnapshot.child("date").getKey());
 
-                String key = dataSnapshot.getKey();
-                mKeys.add(key);
+                eventinfo += "Location: " + dataSnapshot.child("location").getValue() + "\n";
+                mKeys.add(dataSnapshot.child("location").getKey());
+
+                eventinfo += "Details: \n" + dataSnapshot.child("details").getValue();
+                mKeys.add(dataSnapshot.child("details").getKey());
+
+                event_info.add(eventinfo);
+
+//                String value = dataSnapshot.getValue(String.class);
+//                event_info.add(value);
+
+//                String key = dataSnapshot.getKey();
+//                mKeys.add(key);
 
                 arrayAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                String value = dataSnapshot.getValue(String.class);
-                String key = dataSnapshot.getKey();
+//                String value = dataSnapshot.getValue(String.class);
+//                String key = dataSnapshot.getKey();
+//
+//                int index = mKeys.indexOf(key);
+//
+//                event_info.set(index,value);
 
-                int index = mKeys.indexOf(key);
 
-                event_info.set(index,value);
+                for (DataSnapshot eventItem: dataSnapshot.getChildren()){
+                    String value = eventItem.getValue(String.class);
+                    String key = eventItem.getKey();
+
+                    int index = mKeys.indexOf(key);
+
+                    event_info.set(index,value);
+                }
 
                 arrayAdapter.notifyDataSetChanged();
             }
@@ -151,8 +173,11 @@ public class MainActivity extends AppCompatActivity
 //                    ", location: " + data.getStringExtra("location") +
 //                    ", details: " + data.getStringExtra("details");
 //            Toast.makeText(MainActivity.this, user_event_data , Toast.LENGTH_SHORT).show();
+            Event event = new Event(data.getStringExtra("date"),
+                    data.getStringExtra("location"),
+                    data.getStringExtra("details"));
 
-
+            mDatabase.push().setValue(event);
         }
     }
 }
