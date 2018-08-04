@@ -6,13 +6,18 @@ public class Event {
     private Date date;
     private String location;
     private String details;
-    private String createdBy;
+    //private String createdBy;
+
+    public Event(){
+        // Default constructor required for calls to DataSnapshot.getValue(Event.class)
+
+    }
 
     public Event(Date d, String loc, String det, String cb){
         this.date = d;
         this.location = loc;
         this.details = det;
-        this.createdBy = cb;
+        //this.createdBy = cb;
     }
 
     public Date getDate() {
@@ -39,11 +44,11 @@ public class Event {
         this.details = details;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
-    }
+//    public String getCreatedBy() {
+//        return createdBy;
+//    }
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
+//    public void setCreatedBy(String createdBy) {
+//        this.createdBy = createdBy;
+//    }
 }
