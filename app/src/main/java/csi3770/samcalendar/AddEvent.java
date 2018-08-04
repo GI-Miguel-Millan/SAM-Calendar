@@ -1,5 +1,6 @@
 package csi3770.samcalendar;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -51,7 +52,14 @@ public class AddEvent extends AppCompatActivity {
                         ", location: " + loc +
                         ", details: " + det;
 
-                Toast.makeText(AddEvent.this, user_event_data , Toast.LENGTH_SHORT).show();
+                //Toast.makeText(AddEvent.this, user_event_data , Toast.LENGTH_SHORT).show();
+
+                Intent newEvent = new Intent();
+                newEvent.putExtra("date", date_to_string);
+                newEvent.putExtra("location", loc);
+                newEvent.putExtra("details", det);
+                setResult(RESULT_OK, newEvent);
+                finish();
             }
         });
 

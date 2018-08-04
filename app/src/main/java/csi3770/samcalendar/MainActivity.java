@@ -1,5 +1,6 @@
 package csi3770.samcalendar;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -101,7 +102,7 @@ public class MainActivity extends AppCompatActivity
 
                 Intent intent = new Intent(getBaseContext(), AddEvent.class);
                 intent.putExtra("date", date.getTime());
-                startActivity(intent);
+                startActivityForResult(intent, 999);
             }
 
             @Override
@@ -139,5 +140,19 @@ public class MainActivity extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 999 && resultCode == Activity.RESULT_OK){
+//            String user_event_data = "date: " + data.getStringExtra("date") +
+//                    ", location: " + data.getStringExtra("location") +
+//                    ", details: " + data.getStringExtra("details");
+//            Toast.makeText(MainActivity.this, user_event_data , Toast.LENGTH_SHORT).show();
+
+
+        }
     }
 }
