@@ -10,5 +10,7 @@
     <string name="detailsPrompt">Enter Event Details</string>
     <string name="createdBy">Who Created this Event?</string>
     <string name="submitEvent">Submit</string>
+    <string name="UpdateEvent">Update</string>
+    <string name="RemoveEvent">Delete</string>
 
 </resources>
