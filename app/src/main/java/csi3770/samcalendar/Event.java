@@ -3,6 +3,7 @@ package csi3770.samcalendar;
 import java.util.Date;
 
 public class Event {
+    private String key;
     private String date; // When manipulating date, make sure to convert to a date.
     private String location;
     private String details;
@@ -14,6 +15,7 @@ public class Event {
     }
 
     public Event(String d, String loc, String det){
+        this.key = null;
         this.date = d;
         this.location = loc;
         this.details = det;
@@ -35,6 +37,10 @@ public class Event {
     public void setLocation(String location) {
         this.location = location;
     }
+
+    public String getKey(){ return this.key; }
+
+    public void setKey(String key){ this.key = key; }
 
     public String getDetails() {
         return details;
