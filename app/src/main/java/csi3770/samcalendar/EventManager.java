@@ -8,7 +8,7 @@ public class EventManager {
     HashSet<Event> events;
 
     public EventManager(){
-        events = null;
+        events = new HashSet<>();
     }
 
     public EventManager(HashSet<Event> events){
