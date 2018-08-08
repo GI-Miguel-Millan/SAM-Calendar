@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity
     private DatabaseReference mDatabase;
     private ListView mEventList;
     private EventManager events;
-    private ArrayList<String> event_info = new ArrayList<>();
     private ArrayList<String> mKeys = new ArrayList<>();
     private CalendarView cv;
 
@@ -50,8 +49,6 @@ public class MainActivity extends AppCompatActivity
         mDatabase.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                String eventinfo = "";
-
                 String tDate = (String)dataSnapshot.child("date").getValue();
                 String tLocation = (String)dataSnapshot.child("location").getValue();
                 String tDetails = (String)dataSnapshot.child("details").getValue();
@@ -62,47 +59,24 @@ public class MainActivity extends AppCompatActivity
                 events.addEvent(tEvent);
                 events.getEventDates().add(tEvent.getDateAsDate());
 
-
-                eventinfo += "Date: " + tDate + "\n";
                 mKeys.add(dataSnapshot.child("date").getKey());
-
-                eventinfo += "Location: " + tLocation + "\n";
                 mKeys.add(dataSnapshot.child("location").getKey());
-
-                eventinfo += "Details: \n" + tDetails;
                 mKeys.add(dataSnapshot.child("details").getKey());
-
-                event_info.add(eventinfo);
-
-
-
-//                String value = dataSnapshot.getValue(String.class);
-//                event_info.add(value);
-
-//                String key = dataSnapshot.getKey();
-//                mKeys.add(key);
 
                 eventsAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-//                String value = dataSnapshot.getValue(String.class);
-//                String key = dataSnapshot.getKey();
-//
-//                int index = mKeys.indexOf(key);
-//
-//                event_info.set(index,value);
+                String key = dataSnapshot.getKey();
+                String date = (String) dataSnapshot.child("date").getValue();
+                String location = (String) dataSnapshot.child("location").getValue();
+                String details = (String) dataSnapshot.child("details").getValue();
 
-
-                for (DataSnapshot eventItem: dataSnapshot.getChildren()){
-                    String value = eventItem.getValue(String.class);
-                    String key = eventItem.getKey();
-
-                    int index = mKeys.indexOf(key);
-
-                    event_info.set(index,value);
-                }
+                Event updateEvent = events.getEvent(key);
+                updateEvent.setDate(date);
+                updateEvent.setLocation(location);
+                updateEvent.setDetails(details);
 
                 eventsAdapter.notifyDataSetChanged();
             }

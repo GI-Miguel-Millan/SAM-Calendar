@@ -37,6 +37,15 @@ public class EventManager {
         this.eventDates.add(event.getDateAsDate());
     }
 
+    public Event getEvent(String key){
+        for(Event e: this.events){
+            if (e.getKey().equals(key)){
+                return e;
+            }
+        }
+
+        return null;
+    }
     public void removeEvent(Event event){
         this.events.remove(event);
         this.eventDates.remove(event.getDateAsDate());
