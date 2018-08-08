@@ -25,7 +25,7 @@ public class EventManager {
     public HashSet<Event> getEventsForDate(Date date){
         HashSet<Event> eventsOnDate = new HashSet<Event>();
         for (Event e : this.events) {
-            if (e.getDate().equals(date)) {
+            if (e.getDateAsDate().equals(date)) {
                 eventsOnDate.add(e);
             }
         }
@@ -47,8 +47,14 @@ public class EventManager {
         return null;
     }
     public void removeEvent(Event event){
+        Date dateRemoved = event.getDateAsDate();
         this.events.remove(event);
-        this.eventDates.remove(event.getDateAsDate());
+
+        if (getEventsForDate(dateRemoved).isEmpty()){
+            this.eventDates.remove(event.getDateAsDate());
+        }
+
+
     }
 
     public ArrayList<Event> getEvents() {

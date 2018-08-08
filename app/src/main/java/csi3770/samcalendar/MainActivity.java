@@ -152,12 +152,6 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    @Override
-    protected void onResume(){
-        super.onResume();
-
-        cv.updateCalendar(events.getEventDates());
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
