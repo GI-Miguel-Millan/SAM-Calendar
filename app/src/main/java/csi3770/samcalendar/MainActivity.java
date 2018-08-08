@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -30,7 +32,6 @@ public class MainActivity extends AppCompatActivity
     private EventManager events;
     private ArrayList<String> event_info = new ArrayList<>();
     private ArrayList<String> mKeys = new ArrayList<>();
-    private HashSet<Date> markDates = new HashSet<>();
     private CalendarView cv;
 
     @Override
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity
                 Event tEvent = new Event(tDate,tLocation,tDetails,tKey);
 
                 events.addEvent(tEvent);
-                markDates.add(tEvent.getDateAsDate());
+                events.getEventDates().add(tEvent.getDateAsDate());
 
 
                 eventinfo += "Date: " + tDate + "\n";
@@ -121,7 +122,7 @@ public class MainActivity extends AppCompatActivity
         });
 
         cv = ((CalendarView)findViewById(R.id.calendar_view));
-        cv.updateCalendar(markDates);
+        cv.updateCalendar(events.getEventDates());
 
         // assign event handler
         cv.setEventHandler(new CalendarView.EventHandler()
@@ -141,12 +142,18 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onShortPress(Date date){
-                // show returned day
-                //DateFormat df = SimpleDateFormat.getDateInstance();
-                //Toast.makeText(MainActivity.this, df.format(date), Toast.LENGTH_SHORT).show();
-                Toast.makeText(MainActivity.this, "display events for this day", Toast.LENGTH_SHORT).show();
-                cv.updateCalendar(markDates);
 
+                Toast.makeText(MainActivity.this, "display events for this day", Toast.LENGTH_SHORT).show();
+                cv.updateCalendar(events.getEventDates());
+
+            }
+        });
+
+        // when an item is clicked we want to update it.
+        mEventList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                
             }
         });
     }
@@ -155,14 +162,7 @@ public class MainActivity extends AppCompatActivity
     protected void onResume(){
         super.onResume();
 
-        cv.updateCalendar(markDates);
-    }
-
-    @Override
-    protected void onStart(){
-        super.onStart();
-
-        cv.updateCalendar(markDates);
+        cv.updateCalendar(events.getEventDates());
     }
 
     @Override
