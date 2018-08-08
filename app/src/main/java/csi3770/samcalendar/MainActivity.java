@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity
     private EventManager events;
     private ArrayList<String> event_info = new ArrayList<>();
     private ArrayList<String> mKeys = new ArrayList<>();
+    private HashSet<Date> markDates = new HashSet<>();
+    private CalendarView cv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -48,13 +51,24 @@ public class MainActivity extends AppCompatActivity
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 String eventinfo = "";
 
-                eventinfo += "Date: " + dataSnapshot.child("date").getValue() + "\n";
+                String tDate = (String)dataSnapshot.child("date").getValue();
+                String tLocation = (String)dataSnapshot.child("location").getValue();
+                String tDetails = (String)dataSnapshot.child("details").getValue();
+                String tKey = dataSnapshot.getKey();
+
+                Event tEvent = new Event(tDate,tLocation,tDetails,tKey);
+
+                events.addEvent(tEvent);
+                markDates.add(tEvent.getDateAsDate());
+
+
+                eventinfo += "Date: " + tDate + "\n";
                 mKeys.add(dataSnapshot.child("date").getKey());
 
-                eventinfo += "Location: " + dataSnapshot.child("location").getValue() + "\n";
+                eventinfo += "Location: " + tLocation + "\n";
                 mKeys.add(dataSnapshot.child("location").getKey());
 
-                eventinfo += "Details: \n" + dataSnapshot.child("details").getValue();
+                eventinfo += "Details: \n" + tDetails;
                 mKeys.add(dataSnapshot.child("details").getKey());
 
                 event_info.add(eventinfo);
@@ -106,11 +120,8 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        HashSet<Date> events = new HashSet<>();
-        events.add(new Date());
-
-        CalendarView cv = ((CalendarView)findViewById(R.id.calendar_view));
-        cv.updateCalendar(events);
+        cv = ((CalendarView)findViewById(R.id.calendar_view));
+        cv.updateCalendar(markDates);
 
         // assign event handler
         cv.setEventHandler(new CalendarView.EventHandler()
@@ -134,10 +145,24 @@ public class MainActivity extends AppCompatActivity
                 //DateFormat df = SimpleDateFormat.getDateInstance();
                 //Toast.makeText(MainActivity.this, df.format(date), Toast.LENGTH_SHORT).show();
                 Toast.makeText(MainActivity.this, "display events for this day", Toast.LENGTH_SHORT).show();
-
+                cv.updateCalendar(markDates);
 
             }
         });
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+
+        cv.updateCalendar(markDates);
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+
+        cv.updateCalendar(markDates);
     }
 
     @Override

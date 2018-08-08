@@ -1,5 +1,8 @@
 package csi3770.samcalendar;
 
+import android.util.Log;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Event {
@@ -22,8 +25,30 @@ public class Event {
         //this.createdBy = cb;
     }
 
+    public Event(String d, String loc, String det, String key){
+        this.key = key;
+        this.date = d;
+        this.location = loc;
+        this.details = det;
+        //this.createdBy = cb;
+    }
+
     public String getDate() {
         return date;
+    }
+
+    public Date getDateAsDate() {
+        Date tDate;
+        try {
+           tDate = new SimpleDateFormat().getDateInstance().parse(date);
+
+        } catch (Exception e){
+            e.getCause();
+            tDate = new Date();
+        }
+
+
+        return tDate;
     }
 
     public void setDate(String date) {
