@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mEventList = (ListView) findViewById(R.id.event_list);
         events = new EventManager();
+        cv = ((CalendarView)findViewById(R.id.calendar_view));
 
         final EventsAdapter eventsAdapter = new EventsAdapter(this, events.getEvents());
         mEventList.setAdapter(eventsAdapter);
@@ -64,6 +65,9 @@ public class MainActivity extends AppCompatActivity
                 mKeys.add(dataSnapshot.child("details").getKey());
 
                 eventsAdapter.notifyDataSetChanged();
+                cv.updateCalendar(events.getEventDates());
+
+
             }
 
             @Override
@@ -79,6 +83,7 @@ public class MainActivity extends AppCompatActivity
                 updateEvent.setDetails(details);
 
                 eventsAdapter.notifyDataSetChanged();
+                cv.updateCalendar(events.getEventDates());
             }
 
             @Override
@@ -86,6 +91,8 @@ public class MainActivity extends AppCompatActivity
                 String key = dataSnapshot.getKey();
                 events.removeEvent(events.getEvent(key));
                 eventsAdapter.notifyDataSetChanged();
+                cv.updateCalendar(events.getEventDates());
+
             }
 
             @Override
@@ -99,8 +106,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        cv = ((CalendarView)findViewById(R.id.calendar_view));
-        cv.updateCalendar(events.getEventDates());
+
 
         // assign event handler
         cv.setEventHandler(new CalendarView.EventHandler()
