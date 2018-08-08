@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class UpdateEvent extends AppCompatActivity {
-    private Date date;
+    private String date = "";
     private String location = "";
     private String details = "";
     private String key = "";
@@ -38,20 +38,16 @@ public class UpdateEvent extends AppCompatActivity {
         btnRemoveEvent = findViewById(R.id.ButtonRemoveEvent);
 
         // Get the data sent from MainActivity
-        date = new Date();
         Bundle extras = getIntent().getExtras();
         if (extras !=null) {
-            date.setTime(extras.getLong("date"));
+            date = extras.getString("date");
             location = extras.getString("location");
             details = extras.getString("details");
             key = extras.getString("key");
         }
 
         // Get the set the date to the event label
-        DateFormat df = SimpleDateFormat.getDateInstance();
-        final String date_to_string = df.format(date);
-        tvDate.setText("Event on: " + date_to_string);
-
+        tvDate.setText(date);
         etLocation.setText(location); // set previous location
         etDetails.setText(details); // set previous details
 
@@ -62,7 +58,7 @@ public class UpdateEvent extends AppCompatActivity {
                 String det = etDetails.getText().toString();
 
                 Intent newEvent = new Intent();
-                newEvent.putExtra("date", date_to_string);
+                newEvent.putExtra("date", date);
                 newEvent.putExtra("location", loc);
                 newEvent.putExtra("details", det);
                 newEvent.putExtra("key", key);

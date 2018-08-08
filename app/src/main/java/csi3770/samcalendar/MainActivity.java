@@ -83,7 +83,9 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-
+                String key = dataSnapshot.getKey();
+                events.removeEvent(events.getEvent(key));
+                eventsAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -134,7 +136,12 @@ public class MainActivity extends AppCompatActivity
 
                 String selectedFromList2 = "Key: " + selected_event.getKey();
 
-                Toast.makeText(MainActivity.this, selectedFromList2, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getBaseContext(), UpdateEvent.class);
+                intent.putExtra("date", selected_event.getDate());
+                intent.putExtra("location", selected_event.getLocation());
+                intent.putExtra("details", selected_event.getDetails());
+                intent.putExtra("key", selected_event.getKey());
+                startActivityForResult(intent, 998);
             }
         });
     }
@@ -175,16 +182,32 @@ public class MainActivity extends AppCompatActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        // Add Event to Database
         if(requestCode == 999 && resultCode == Activity.RESULT_OK){
-//            String user_event_data = "date: " + data.getStringExtra("date") +
-//                    ", location: " + data.getStringExtra("location") +
-//                    ", details: " + data.getStringExtra("details");
-//            Toast.makeText(MainActivity.this, user_event_data , Toast.LENGTH_SHORT).show();
             Event event = new Event(data.getStringExtra("date"),
                     data.getStringExtra("location"),
                     data.getStringExtra("details"));
 
             mDatabase.push().setValue(event);
+        }
+
+        // Update event
+        if(requestCode == 998 && resultCode == Activity.RESULT_OK){
+            String key = data.getStringExtra("key");
+            String date = data.getStringExtra("date");
+            String location = data.getStringExtra("location");
+            String details = data.getStringExtra("details");
+
+            mDatabase.child(key).child("date").setValue(date);
+            mDatabase.child(key).child("location").setValue(location);
+            mDatabase.child(key).child("details").setValue(details);
+        }
+
+        // Delete Event
+        if(requestCode == 998 && resultCode == -2){
+            String key = data.getStringExtra("key");
+
+            mDatabase.child(key).removeValue();
         }
     }
 }
