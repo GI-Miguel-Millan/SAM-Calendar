@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity
         mEventList = (ListView) findViewById(R.id.event_list);
         events = new EventManager();
 
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, event_info);
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, events.getEvents());
         mEventList.setAdapter(arrayAdapter);
 
         mDatabase.addChildEventListener(new ChildEventListener() {

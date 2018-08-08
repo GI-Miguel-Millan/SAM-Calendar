@@ -5,15 +5,15 @@ import java.util.Date;
 import java.util.HashSet;
 
 public class EventManager {
-    HashSet<Event> events;
+    ArrayList<Event> events;
     private HashSet<Date> eventDates;
 
     public EventManager(){
-        events = new HashSet<>();
+        events = new ArrayList<>();
         eventDates = new HashSet<>();
     }
 
-    public EventManager(HashSet<Event> events){
+    public EventManager(ArrayList<Event> events){
         this.events = events;
         eventDates = new HashSet<>();
         for (Event e: events){
@@ -42,7 +42,7 @@ public class EventManager {
         this.eventDates.remove(event.getDateAsDate());
     }
 
-    public HashSet<Event> getEvents() {
+    public ArrayList<Event> getEvents() {
         return events;
     }
 
@@ -50,11 +50,12 @@ public class EventManager {
         return eventDates;
     }
 
-    public void setEvents(HashSet<Event> events) {
+    public void setEvents(ArrayList<Event> events) {
         this.events = events;
         eventDates = new HashSet<>();
         for (Event e: events){
             eventDates.add(e.getDateAsDate());
         }
     }
+
 }
