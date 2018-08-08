@@ -153,7 +153,11 @@ public class MainActivity extends AppCompatActivity
         mEventList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                
+                String selectedFromList = (String)(mEventList.getItemAtPosition(i));
+
+
+                String selectedFromList2 = (String)adapterView.getAdapter().getItem(i);
+                Toast.makeText(MainActivity.this, selectedFromList2, Toast.LENGTH_SHORT).show();
             }
         });
     }
