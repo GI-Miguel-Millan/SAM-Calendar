@@ -44,8 +44,8 @@ public class MainActivity extends AppCompatActivity
         mEventList = (ListView) findViewById(R.id.event_list);
         events = new EventManager();
 
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, events.getEvents());
-        mEventList.setAdapter(arrayAdapter);
+        final EventsAdapter eventsAdapter = new EventsAdapter(this, events.getEvents());
+        mEventList.setAdapter(eventsAdapter);
 
         mDatabase.addChildEventListener(new ChildEventListener() {
             @Override
@@ -74,13 +74,15 @@ public class MainActivity extends AppCompatActivity
 
                 event_info.add(eventinfo);
 
+
+
 //                String value = dataSnapshot.getValue(String.class);
 //                event_info.add(value);
 
 //                String key = dataSnapshot.getKey();
 //                mKeys.add(key);
 
-                arrayAdapter.notifyDataSetChanged();
+                eventsAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -102,7 +104,7 @@ public class MainActivity extends AppCompatActivity
                     event_info.set(index,value);
                 }
 
-                arrayAdapter.notifyDataSetChanged();
+                eventsAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -153,10 +155,11 @@ public class MainActivity extends AppCompatActivity
         mEventList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String selectedFromList = (String)(mEventList.getItemAtPosition(i));
 
+                Event selected_event = (Event)adapterView.getAdapter().getItem(i);
 
-                String selectedFromList2 = (String)adapterView.getAdapter().getItem(i);
+                String selectedFromList2 = "Key: " + selected_event.getKey();
+
                 Toast.makeText(MainActivity.this, selectedFromList2, Toast.LENGTH_SHORT).show();
             }
         });
