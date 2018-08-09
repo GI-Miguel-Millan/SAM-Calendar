@@ -22,9 +22,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 
-/**
- * Created by a7med on 28/06/2015.
- */
 public class CalendarView extends LinearLayout
 {
     // for logging

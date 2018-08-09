@@ -60,11 +60,17 @@ public class MainActivity extends AppCompatActivity
                 events.addEvent(tEvent);
                 events.getEventDates().add(tEvent.getDateAsDate());
 
+                if(!events.getDisplayEvents().isEmpty()){
+                    if (events.getDisplayEvents().get(0).getDate().equals(tEvent.getDate())){
+                        events.getDisplayEvents().add(tEvent);
+                    }
+                }
+
                 mKeys.add(dataSnapshot.child("date").getKey());
                 mKeys.add(dataSnapshot.child("location").getKey());
                 mKeys.add(dataSnapshot.child("details").getKey());
 
-                //eventsAdapter.notifyDataSetChanged();
+                eventsAdapter.notifyDataSetChanged();
                 cv.updateCalendar(events.getEventDates());
 
 
@@ -78,11 +84,12 @@ public class MainActivity extends AppCompatActivity
                 String details = (String) dataSnapshot.child("details").getValue();
 
                 Event updateEvent = events.getEvent(key);
+                
                 updateEvent.setDate(date);
                 updateEvent.setLocation(location);
                 updateEvent.setDetails(details);
 
-                //eventsAdapter.notifyDataSetChanged();
+                eventsAdapter.notifyDataSetChanged();
                 cv.updateCalendar(events.getEventDates());
             }
 
@@ -90,7 +97,7 @@ public class MainActivity extends AppCompatActivity
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 String key = dataSnapshot.getKey();
                 events.removeEvent(events.getEvent(key));
-               // eventsAdapter.notifyDataSetChanged();
+                eventsAdapter.notifyDataSetChanged();
                 cv.updateCalendar(events.getEventDates());
 
             }
@@ -126,7 +133,6 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onShortPress(Date date){
-
                 events.setDisplayEvents(date);
                 eventsAdapter.notifyDataSetChanged();
             }

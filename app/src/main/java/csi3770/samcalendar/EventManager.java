@@ -1,5 +1,7 @@
 package csi3770.samcalendar;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -96,9 +98,13 @@ public class EventManager {
     }
 
     public void setDisplayEvents(Date date) {
+        DateFormat df = SimpleDateFormat.getDateInstance();
+
         this.displayEvents.clear();
-        for (Event e : this.getDisplayEventsForDate(date)){
-            this.displayEvents.add(e);
+        for (Event e : this.events) {
+            if (e.getDate().equals(df.format(date))) {
+                this.displayEvents.add(new Event(e.getDate(),e.getLocation(), e.getDetails(), e.getKey()));
+            }
         }
     }
 }
