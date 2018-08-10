@@ -128,6 +128,7 @@ public class CalendarView extends LinearLayout
             {
                 currentDate.add(Calendar.MONTH, 1);
                 updateCalendar();
+                eventHandler.onMonthChange();
             }
         });
 
@@ -139,6 +140,7 @@ public class CalendarView extends LinearLayout
             {
                 currentDate.add(Calendar.MONTH, -1);
                 updateCalendar();
+                eventHandler.onMonthChange();
             }
         });
 
@@ -300,5 +302,6 @@ public class CalendarView extends LinearLayout
     {
         void onDayLongPress(Date date);
         void onShortPress(Date date);
+        void onMonthChange();
     }
 }

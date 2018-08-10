@@ -150,6 +150,11 @@ public class MainActivity extends AppCompatActivity
                 events.setDisplayEvents(date);
                 eventsAdapter.notifyDataSetChanged();
             }
+
+            @Override
+            public void onMonthChange(){
+                cv.updateCalendar(events.getEventDates());
+            }
         });
 
         // when an item is clicked we want to update it.
