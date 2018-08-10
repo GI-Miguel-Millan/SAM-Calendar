@@ -107,4 +107,19 @@ public class EventManager {
             }
         }
     }
+
+    public Event getDisplayEvent(String key) {
+        for(Event e: this.displayEvents){
+            if (e.getKey().equals(key)){
+                return e;
+            }
+        }
+
+        return null;
+    }
+
+    public void removeDisplayEvent(Event event){
+        this.displayEvents.remove(event);
+
+    }
 }

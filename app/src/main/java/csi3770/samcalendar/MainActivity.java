@@ -84,10 +84,20 @@ public class MainActivity extends AppCompatActivity
                 String details = (String) dataSnapshot.child("details").getValue();
 
                 Event updateEvent = events.getEvent(key);
-                
-                updateEvent.setDate(date);
-                updateEvent.setLocation(location);
-                updateEvent.setDetails(details);
+                Event updateDisplayEvent = events.getDisplayEvent(key);
+
+                if (updateDisplayEvent != null){
+                    updateDisplayEvent.setDate(date);
+                    updateDisplayEvent.setLocation(location);
+                    updateDisplayEvent.setDetails(details);
+                }
+
+                if (updateEvent != null){
+                    updateEvent.setDate(date);
+                    updateEvent.setLocation(location);
+                    updateEvent.setDetails(details);
+                }
+
 
                 eventsAdapter.notifyDataSetChanged();
                 cv.updateCalendar(events.getEventDates());
@@ -97,6 +107,7 @@ public class MainActivity extends AppCompatActivity
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 String key = dataSnapshot.getKey();
                 events.removeEvent(events.getEvent(key));
+                events.removeDisplayEvent(events.getDisplayEvent(key));
                 eventsAdapter.notifyDataSetChanged();
                 cv.updateCalendar(events.getEventDates());
 
@@ -125,10 +136,13 @@ public class MainActivity extends AppCompatActivity
 //                DateFormat df = SimpleDateFormat.getDateInstance();
 //                Toast.makeText(MainActivity.this, df.format(date), Toast.LENGTH_SHORT).show();
                 //Toast.makeText(MainActivity.this, "create event on long press", Toast.LENGTH_SHORT).show();
-
+                events.setDisplayEvents(date);
+                eventsAdapter.notifyDataSetChanged();
+                
                 Intent intent = new Intent(getBaseContext(), AddEvent.class);
                 intent.putExtra("date", date.getTime());
                 startActivityForResult(intent, 999);
+
             }
 
             @Override
